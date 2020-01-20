@@ -3,14 +3,13 @@
 all: generate program
 
 generate: generator.cpp
-	g++ -pg generator.cpp -o generate
+	g++ -pg --coverage generator.cpp -o generate
 	./generate
-
+	@gcov generate.cpp -m
+	
 program:matrix.cpp Matrix.hpp Interface.hpp #add_mult.hpp
-	g++ -pg matrix.cpp -I./ -o program -ftime-report
+	g++ -pg --coverage matrix.cpp -I./ -o program -ftime-report
 	./program
-#test: test.cpp
-#	g++ -pg test.cpp -o test -ftime-report
-#	./test	
+	@gcov matrix.cpp -m
 clean:
 	rm -f generate program 
